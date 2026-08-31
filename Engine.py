@@ -37,7 +37,7 @@ class Match:
     def resolve_round(self) -> None:
         question: Question = self.__questions[self.__round - 1]
 
-        for player in self.__palyers:
+        for player in self.__players:
             choice, elapsed = self.__answers[player]
             
             if elapsed > TIME_LIMIT:
