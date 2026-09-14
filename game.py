@@ -1,43 +1,14 @@
 from rich.console import Console
-from engine import Question, Match
+from engine import Question, Match, ROUNDS, TIME_LIMIT
 import time
+from storage import QuestionBank
+
 
 console = Console()
 
 
-questions = [
-
-    Question(
-        "Choose the biggest number",
-        ["A) 10", "B) 20", "C) 15", "D) 12"],
-        "B"
-    ),
-
-    Question(
-        "Choose the lowest number",
-        ["A) 10", "B) 20", "C) 15", "D) 12"],
-        "A"
-    ),
-
-    Question(
-        "Choose the even number",
-        ["A) 10", "B) 21", "C) 15", "D) 12"],
-        "D"
-    ),
-
-    Question(
-        "Choose the biggest number",
-        ["A) 25", "B) 30", "C) 15", "D) 20"],
-        "B"
-    ),
-
-    Question(
-        "Choose the lowest number",
-        ["A) 8", "B) 18", "C) 5", "D) 12"],
-        "C"
-    )
-]
-
+question_bank = QuestionsBank()
+questions: list[Question] = question_bank.pick(ROUNDS)
 
 def show_question(question):
 

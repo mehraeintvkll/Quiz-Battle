@@ -1,0 +1,54 @@
+[
+    {
+        "question":"choose the biggest number",
+        "options":[
+            "a) 10", 
+            "b) 20", 
+            "c) 15", 
+            "d) 12"
+        ],
+        "correct": "b"
+    },
+    {
+        "question":"choose the lowest number",
+        "options":[
+            "a) 10", 
+            "b) 20", 
+            "c) 15", 
+            "d) 12"
+        ],
+        "correct": "a"
+    },
+    {
+        "question":"choose the even number",
+        "options":[
+            "a) 10", 
+            "b) 21", 
+            "c) 15", 
+            "d) 12"
+        ],
+        "correct": "d"
+    },
+    {
+        "question":"choose the biggest number",
+        "options":[
+            "a) 25", 
+            "b) 35", 
+            "c) 15", 
+            "d) 20"
+        ],
+        "correct": "b"
+    },
+    {
+        "question":"choose the lowest number",
+        "options":[
+            "a) 8", 
+            "b) 18", 
+            "c) 5", 
+            "d) 12"
+        ],
+        "correct": "a"
+    }
+]
+
+
