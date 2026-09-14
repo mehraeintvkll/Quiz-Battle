@@ -1,92 +1,97 @@
 from rich.console import Console
+from engine import Question, Match
+import time
 
 console = Console()
 
 
-fragen = [
-    ("Choose the biggest number",["A) 10", "B) 20", "C) 15", "D) 12"],"B"),
-    ("Choose the lowest number",["A) 10", "B) 20", "C) 15", "D) 12"],"A"),
-    ("Choose the even number",["A) 10", "B) 21", "C) 15", "D) 12"],"D"),
-    ("Choose the biggest number",["A) 25", "B) 30", "C) 15", "D) 20"],"B"),
-    ("Choose the lowest number",["A) 8", "B) 18", "C) 5", "D) 12"],"C")
+questions = [
+
+    Question(
+        "Choose the biggest number",
+        ["A) 10", "B) 20", "C) 15", "D) 12"],
+        "B"
+    ),
+
+    Question(
+        "Choose the lowest number",
+        ["A) 10", "B) 20", "C) 15", "D) 12"],
+        "A"
+    ),
+
+    Question(
+        "Choose the even number",
+        ["A) 10", "B) 21", "C) 15", "D) 12"],
+        "D"
+    ),
+
+    Question(
+        "Choose the biggest number",
+        ["A) 25", "B) 30", "C) 15", "D) 20"],
+        "B"
+    ),
+
+    Question(
+        "Choose the lowest number",
+        ["A) 8", "B) 18", "C) 5", "D) 12"],
+        "C"
+    )
 ]
 
 
-def show_menu():
-    console.print("\n--- Main Menu ---", style="bold")
-    print("1 - Start Game")
-    print("2 - Exit")
+def show_question(question):
 
-    choice = input("Choose: ").strip()
+    console.print(f"\n{question.text}", style="bold cyan")
 
-    return choice
-
-
-def show_question(frage, optionen):
-    console.print(f"\n{frage}", style="bold")
-
-    for option in optionen:
+    for option in question.options:
         print(option)
-
-
-def play_game():
-    punkte = 0
-    richtige_antworten = 0
-
-    for frage, optionen, richtig_antwort in fragen:
-
-        show_question(frage, optionen)
-
-        answer = input(" ").strip().upper()
-
-        if answer == richtig_antwort:
-
-            console.print("Richtig geantwortet", style="bold green")
-
-            punkte += 10
-            richtige_antworten += 1
-
-        else:
-
-            console.print("Falsch", style="bold red")
-
-            punkte -= 3
-
-    return punkte, richtige_antworten
-
-
-def show_result(punkte, richtige_antworten):
-
-    prozent = (richtige_antworten / len(fragen)) * 100
-
-    console.print("\n--- Ergebnis ---", style="bold green")
-
-    console.print(f"Deine Punkte: {punkte}", style="blue")
-
-    console.print(f"Richtige Antworten: " f"{richtige_antworten} von {len(fragen)}", style="bold")
-
-    console.print(f"Du hast {prozent}% richtig beantwortet.", style="bold purple")
 
 
 def main():
 
-    while True:
+    console.print("=== Quiz Game ===", style="bold green")
 
-        choice = show_menu()
+    player1 = input("Player 1 Name: ")
+    player2 = input("Player 2 Name: ")
 
-        if choice == "1":
+    match = Match(player1, player2, questions)
 
-            punkte, richtige_antworten = play_game()
+    while not match.is_over():
 
-            show_result(punkte, richtige_antworten)
+        question = match.start_round()
 
-        elif choice == "2":
-            console.print("\nAuf Wiedersehen!", style="bold yellow")
+        show_question(question)
 
-            break
+        for player in match.players:
 
-        else:
-            console.print("Falsche Auswahl!", style="bold red")
+            console.print(f"\n{player}'s turn", style="yellow")
+
+            start = time.time()
+
+            answer = input("Answer: ").strip().upper()
+
+            elapsed = time.time() - start
+
+            match.submit(player, answer, elapsed)
+
+        match.resolve_round()
+
+        console.print("\nScores:", style="bold")
+
+        for player in match.players:
+            console.print(
+                f"{player}: {match.scores[player]}",
+                style="green"
+            )
+
+    winner = match.winner()
+
+    console.print("\n=== Result ===", style="bold blue")
+
+    if winner:
+        console.print(f"Winner: {winner}", style="bold green")
+    else:
+        console.print("Draw!", style="bold yellow")
 
 
 main()
