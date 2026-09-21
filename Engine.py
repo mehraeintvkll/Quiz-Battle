@@ -8,7 +8,7 @@ class Question:
     def __init__(self, text: str, options: list[str], correct: str) -> None:
         self.__text: str = text
         self.__options: list[str] = options
-        self.__correct: str = correct
+        self.__correct: str = correct.strip().upper()
 
     def is_correct(self, choice: str) -> bool:
         return choice.strip().upper() == self.__correct

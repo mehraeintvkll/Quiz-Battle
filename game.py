@@ -7,7 +7,7 @@ from storage import QuestionBank
 console = Console()
 
 
-question_bank = QuestionsBank()
+question_bank = QuestionBank()
 questions: list[Question] = question_bank.pick(ROUNDS)
 
 def show_question(question):
