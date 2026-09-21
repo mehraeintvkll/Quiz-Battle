@@ -1,13 +1,15 @@
 from rich.console import Console
 from engine import Question, Match, ROUNDS, TIME_LIMIT
 import time
-from storage import QuestionBank
+from storage import QuestionBank, ScoreBoard
 
 
 console = Console()
 
 
 question_bank = QuestionBank()
+board = ScoreBoard()
+show_leaderboard(board)
 questions: list[Question] = question_bank.pick(ROUNDS)
 
 def show_question(question):
