@@ -1,10 +1,11 @@
 import json
 import random
 from typing import Any
-
+from pathlib import Path
 from engine import Question, ROUNDS
 
 QUESTIONS_PATH = "questions.json"
+LEADERBOARD_PATH = "leaderboard.json"
 
 class QuestionBank:
     def __init__(self, path: str = QUESTIONS_PATH) -> None:
@@ -28,7 +29,7 @@ class QuestionBank:
 
 
 class ScoreBoard:
-    def def __init__(self, path: str = LEADERBOARD_PATH) -> None:
+    def __init__(self, path: str = LEADERBOARD_PATH) -> None:
         self._path = Path(path)
         self._data : dict[str, dict[str, int]] = {}
 
